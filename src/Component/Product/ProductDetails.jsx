@@ -6,7 +6,6 @@ import { getProductDetails, clearErrors, getProduct } from "../../actions/produc
 import { useParams } from "react-router-dom";
 import  ReviewCard from "./ReviewCard.js"
 import ReactStars from "react-rating-stars-component";
-import {useAlert} from 'react-alert'
 import Loader from "../Loader/Loader";
 import {
   Dialog,
@@ -47,7 +46,7 @@ const ProductDetails = () => {
   };
   
   const addToCartHandler = () => {
-    dispatch(addItemsToCart(id, quantity));
+    // dispatch(addItemsToCart(id, quantity));
     alert.success("Item Added To Cart");
   };
 
@@ -62,7 +61,7 @@ const ProductDetails = () => {
     myForm.set("comment", comment);
     myForm.set("productId", id);
 
-    dispatch(newReview(myForm));
+    // dispatch(newReview(myForm));
 
     setOpen(false);
   };
@@ -94,11 +93,11 @@ const options = {
   color:'rgba(20,20,20,0.12)'
 };
   useEffect(() => {
-if(error){
-  return alert.error(error)
-  dispatch(clearErrors())
-}     
-dispatch(getProduct())
+// if(error){
+//   return alert.error(error)
+//   dispatch(clearErrors())
+// }     
+// dispatch(getProduct())
 
 
 

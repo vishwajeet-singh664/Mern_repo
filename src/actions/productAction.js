@@ -18,16 +18,23 @@ import {
     DELETE_PRODUCT_REQUEST,
     DELETE_PRODUCT_SUCCESS,
     DELETE_PRODUCT_FAIL,
-   
+    NEW_REVIEW_REQUEST,
+    NEW_REVIEW_SUCCESS,
+    NEW_REVIEW_FAIL,
+    ALL_REVIEW_REQUEST,
+    ALL_REVIEW_SUCCESS,
+    ALL_REVIEW_FAIL,
+    DELETE_REVIEW_REQUEST,
+    DELETE_REVIEW_SUCCESS,
+    DELETE_REVIEW_FAIL,   
     CLEAR_ERROR
-  } from '../constant/ProductConstants';
-  export const getProduct=(keyword="",currentPage=1,price = [0, 40000],category,ratings) => async (dispatch) => {
+  } from '../constants/ProductConstants';
+  export const getProduct=(keyword="",currentPage=1,price =[0, 400000],category,ratings) => async (dispatch) => {
         try {
             dispatch({
                 type: ALL_PRODUCT_REQUEST,
             });
-         let link=`http://192.168.1.69:8080/api/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}`
-        //  &ratings[gte]=${ratings}
+         let link=`http://192.168.1.69:8080/api/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&ratings[gte]=${ratings}`
 
          if (category) {
             link = `http://192.168.1.69:8080/api/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
@@ -75,7 +82,7 @@ export const getAdminProduct = () => async (dispatch) => {
     try {
       dispatch({ type: ADMIN_PRODUCT_REQUEST });
   
-      const { data } = await axios.get("/api/v1/admin/products");
+      const { data } = await axios.get("http://192.168.1.69:8080/api/admin/products");
   
       dispatch({
         type: ADMIN_PRODUCT_SUCCESS,
@@ -97,7 +104,7 @@ export const getAdminProduct = () => async (dispatch) => {
       };
   
       const { data } = await axios.post(
-        `/api/v1/admin/product/new`,
+        `http://192.168.1.69:8080/api/products/create`,
         productData,
         config
       );
@@ -124,7 +131,7 @@ export const getAdminProduct = () => async (dispatch) => {
       };
   
       const { data } = await axios.put(
-        `/api/v1/admin/product/${id}`,
+        `http://192.168.1.69:8080/api/products/${id}`,
         productData,
         config
       );
@@ -146,7 +153,7 @@ export const getAdminProduct = () => async (dispatch) => {
     try {
       dispatch({ type: DELETE_PRODUCT_REQUEST });
   
-      const { data } = await axios.delete(`/api/v1/admin/product/${id}`);
+      const { data } = await axios.delete(`http://192.168.1.69:8080/api/products/${id}`);
   
       dispatch({
         type: DELETE_PRODUCT_SUCCESS,
@@ -159,13 +166,74 @@ export const getAdminProduct = () => async (dispatch) => {
       });
     }
   };
-  // NEW REVIEW
+  
 
 
-///Crearing Error
 export const clearErrors=()=> async (dispatch)=>{
 
     dispatch({type:CLEAR_ERROR})
 }
+
+export const newReview = (reviewData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_REVIEW_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.put(`http://192.168.1.69:8080/api/review`, reviewData, config);
+
+    dispatch({
+      type: NEW_REVIEW_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_REVIEW_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Get All Reviews of a Product
+export const getAllReviews = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_REVIEW_REQUEST });
+
+    const { data } = await axios.get(`http://192.168.1.69:8080/api/reviews?id=${id}`);
+
+    dispatch({
+      type: ALL_REVIEW_SUCCESS,
+      payload: data.reviews,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_REVIEW_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Delete Review of a Product
+export const deleteReviews = (reviewId, productId) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_REVIEW_REQUEST });
+
+    const { data } = await axios.delete(
+      `http://192.168.1.69:8080/apireviews?id=${reviewId}&productId=${productId}`
+    );
+
+    dispatch({
+      type: DELETE_REVIEW_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_REVIEW_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
 

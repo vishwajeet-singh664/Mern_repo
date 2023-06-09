@@ -10,12 +10,12 @@ import StorageIcon from "@material-ui/icons/Storage";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import SideBar from "./Sidebar";
-import { NEW_PRODUCT_RESET } from "../../constant/ProductConstants";
+import { NEW_PRODUCT_RESET } from "../../constants/ProductConstants";
 import { useNavigate } from "react-router-dom";
 
 const NewProduct = () => {
   const dispatch = useDispatch();
-  const alert = useAlert();
+  // const alert = useAlert();
   const navigate = useNavigate();
 
   const { loading, error, success } = useSelector((state) => state.newProduct);
@@ -39,10 +39,10 @@ const NewProduct = () => {
   ];
 
   useEffect(() => {
-    if (error) {
-      alert.error(error);
-      dispatch(clearErrors());
-    }
+    // if (error) {
+    //   alert.error(error);
+    //   dispatch(clearErrors());
+    // }
 
     if (success) {
       alert.success("Product Created Successfully");
@@ -90,7 +90,7 @@ const NewProduct = () => {
 
   return (
     <Fragment>
-      <MetaData title="Create Product" />
+      {/* <MetaData title="Create Product" /> */}
       <div className="dashboard">
         <SideBar />
         <div className="newProductContainer">
