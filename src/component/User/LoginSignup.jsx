@@ -1,8 +1,10 @@
 import React, { Fragment, useRef, useState, useEffect } from "react";
 import "./LoginSignUp.css";
-import Loader from "../Loader/Loader";
+import Loader from "../layout/Loader/Loader"
 import { Link } from "react-router-dom";
-
+import LockIcon from '@mui/icons-material/Lock';
+import MailIcon from '@mui/icons-material/Mail';
+import PersonIcon from '@mui/icons-material/Person';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login, register } from "../../actions/userAction";
@@ -51,7 +53,7 @@ const {error, loading,isAuthenticated} =useSelector((state)=>state.user)
         myForm.set("email", email);
         myForm.set("password", password);
         myForm.set("avatar", avatar);
-        dispatch(register(myForm));
+        dispatch(register(user));
         // console.log("Form Submitted")
       };
 
@@ -121,7 +123,7 @@ const {error, loading,isAuthenticated} =useSelector((state)=>state.user)
               </div>
               <form className="loginForm" ref={loginTab} onSubmit={loginSubmit}>
                 <div className="loginEmail">
-                  {/* <MailOutlineIcon /> */}
+                  <MailIcon />
                   <input
                     type="email"
                     placeholder="Email"
@@ -132,7 +134,7 @@ const {error, loading,isAuthenticated} =useSelector((state)=>state.user)
                   />
                 </div>
                 <div className="loginPassword">
-                  {/* <LockOpenIcon /> */}
+                  <LockIcon />
                   <input
                     type="password"
                     placeholder="Password"
@@ -151,7 +153,7 @@ const {error, loading,isAuthenticated} =useSelector((state)=>state.user)
                 onSubmit={registerSubmit}
               >
                 <div className="signUpName">
-                  {/* <FaceIcon /> */}
+                  <PersonIcon />
                   <input
                     type="text"
                     placeholder="Name"
@@ -162,7 +164,7 @@ const {error, loading,isAuthenticated} =useSelector((state)=>state.user)
                   />
                 </div>
                 <div className="signUpEmail">
-                  {/* <MailOutlineIcon /> */}
+                  <MailIcon />
                   <input
                     type="email"
                     placeholder="Email"
@@ -173,7 +175,7 @@ const {error, loading,isAuthenticated} =useSelector((state)=>state.user)
                   />
                 </div>
                 <div className="signUpPassword">
-                  {/* <LockOpenIcon /> */}
+                  <LockIcon />
                   <input
                     type="password"
                     placeholder="Password"

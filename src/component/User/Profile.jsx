@@ -1,5 +1,5 @@
 
-import Loader from "../Loader/Loader.jsx";
+import Loader from "../layout/Loader/Loader"
 import { Link } from "react-router-dom";
 import React, {useEffect} from "react";
 import MetaData from "../layout/MetaData.jsx";

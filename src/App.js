@@ -6,12 +6,12 @@ import React from "react";
 // import Loader from "./components/Loader/Loader.jsx";
 // import Footer from "./components/layout/Footer/Footer.jsx";
 // import ProductDetails from "./components/Product/ProductDetails.jsx"
-import LoginSignup from "./components/User/LoginSignup";
-import Home from "./components/Home/Home";
+import LoginSignup from "./component/User/LoginSignup";
+import Home from "./component/Home/Home";
 import store from "./store"
 import { loadUser } from "./actions/userAction";
 import { useDispatch, useSelector } from "react-redux";
-import UserOptions from "./component/layout/Header/UserOptions";
+
 import Profile from "./component/User/Profile.jsx"
 // import ProtectedRoute from "./components/Route/ProtectedRoute";
 import Shipping from "./component/Cart/Shipping.jsx"

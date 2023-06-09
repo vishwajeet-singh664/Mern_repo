@@ -77,7 +77,8 @@
     font: 300 0.9vmax cursive;
     outline: none;
   }
-  loginForm > div > svg,
+
+  .loginForm > div > svg,
 .signUpForm > div > svg {
   position: absolute;
   transform: translateX(1vmax);

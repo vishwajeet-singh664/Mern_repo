@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Shipping.css";
 import { useSelector, useDispatch } from "react-redux";
 import { saveShippingInfo } from "../../actions/cartAction";
-import MetaData from "../../components/layout/MetaData";
+import MetaData from "../../component/layout/MetaData";
 import PinDropIcon from "@mui/icons-material/PinDrop";
 import HomeIcon from "@mui/icons-material/Home";
 import LocationCityIcon from "@mui/icons-material/LocationCity";

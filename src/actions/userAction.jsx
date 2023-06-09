@@ -51,7 +51,8 @@ export const register = (userData) => async (dispatch) => {
 
     const config = { headers: { "Content-Type": "multipart/form-data" } };
 
-    const { data } = await axios.post(`http://192.168.1.69:8080/api/users/register`, userData, config);
+    console.log("heyyyyy",userData)
+    const { data } = await axios.post(`http://192.168.1.69:8080/api/users/register`, userData).catch(err => console.log(err));
 
     dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
   } catch (error) {
@@ -68,7 +69,7 @@ export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
 
-    const { data } = await axios.get(`/api/v1/me`);
+    const { data } = await axios.get(`http://192.168.1.69:8080/api/users/me `);
 
     dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
   } catch (error) {
@@ -94,7 +95,7 @@ export const updateProfile = (userData) => async (dispatch) => {
 
     const config = { headers: { "Content-Type": "multipart/form-data" } };
 
-    const { data } = await axios.put(`/api/v1/me/update`, userData, config);
+    const { data } = await axios.put(`http://192.168.1.69:8080/api/users/me/update`, userData, config);
 
     dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data.success });
   } catch (error) {
