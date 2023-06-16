@@ -1,0 +1,19 @@
+.Sidebar{
+    width: 100px;
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;
+    position: left;
+    border: 1px;
+    border-color: solid black;
+    
+    
+  }
+  .list-group a:hover{
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+    border: 1px;
+    border-color: solid black;
+  }
+   

@@ -1,0 +1,25 @@
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing:border-box;
+    
+}
+.navbar-brand {
+    color: rgb(160, 160, 196);
+    font-size: 20px;
+    display: flex;
+    text-align: center;
+    font-weight: bold;
+  }
+  .nav-link.active {
+    color:rgb(218, 192, 243);
+    display:flex;
+    font-weight: bold;
+  }
+  .navbar{
+    height: 100px;
+
+  }
+  
