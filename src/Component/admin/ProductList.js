@@ -1,3 +1,4 @@
+
 import React, { Fragment, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import "./productList.css";
@@ -8,18 +9,14 @@ import {
   deleteProduct,
 } from "../../actions/productAction";
 import { Link, useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
 import { Button } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
 import SideBar from "./Sidebar";
-import { DELETE_PRODUCT_RESET } from "../../constants/productConstants";
+import { DELETE_PRODUCT_RESET } from "../../constants/ProductConstants";
 
-const ProductList = () => {
+const ProductList = ({ alert }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const alert = useAlert();
 
   const { error, products } = useSelector((state) => state.products);
 
@@ -33,19 +30,19 @@ const ProductList = () => {
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      alert(error, "error");
       dispatch(clearErrors());
     }
 
     if (deleteError) {
-      alert.error(deleteError);
+      alert(deleteError, "error");
       dispatch(clearErrors());
     }
 
     if (isDeleted) {
-      alert.success("Product Deleted Successfully");
-      navigate("/admin/dashboard");
       dispatch({ type: DELETE_PRODUCT_RESET });
+      alert("Product Deleted Successfully");
+      navigate("/admin/dashboard");
     }
 
     dispatch(getAdminProduct());
@@ -87,7 +84,7 @@ const ProductList = () => {
         return (
           <Fragment>
             <Link to={`/admin/product/${params.getValue(params.id, "id")}`}>
-              <EditIcon />
+              Edit
             </Link>
 
             <Button
@@ -95,7 +92,7 @@ const ProductList = () => {
                 deleteProductHandler(params.getValue(params.id, "id"))
               }
             >
-              <DeleteIcon />
+              Delete
             </Button>
           </Fragment>
         );
@@ -117,7 +114,6 @@ const ProductList = () => {
 
   return (
     <Fragment>
-      <MetaData title={`ALL PRODUCTS - Admin`} />
 
       <div className="dashboard">
         <SideBar />

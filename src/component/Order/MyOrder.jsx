@@ -1,36 +1,43 @@
 import React, { Fragment, useEffect } from "react";
-import { DataGrid } from '@mui/x-data-grid';
-
-import "./myOrders.css";
+import { DataGrid } from "@mui/x-data-grid";
 import { useSelector, useDispatch } from "react-redux";
 import { clearErrors, myOrders } from "../../actions/orderAction";
 import Loader from "../layout/Loader/Loader";
-import { Link } from "react-router-dom";
-import { useAlert } from "react-alert";
-import Typography from "@material-ui/core/Typography";
+import { Link, useNavigate } from "react-router-dom";
 import MetaData from "../layout/MetaData";
-import LaunchIcon from '@mui/icons-material/Launch';
+import LaunchIcon from "@mui/icons-material/Launch";
 
-const MyOrders = () => {
+
+export const MyOrders = ({ alert }) => {
+
+  const navigate = useNavigate()
+  const token = localStorage.getItem('token');
   const dispatch = useDispatch();
-
-  const alert = useAlert();
 
   const { loading, error, orders } = useSelector((state) => state.myOrders);
   const { user } = useSelector((state) => state.user);
 
+  useEffect(() => {
+    if (error) {
+      alert(error, "error")
+      dispatch(clearErrors());
+    }
+    if (!token) {
+      alert("Please login to access this route.", "error");
+      return navigate('/login');
+    }
+  }, [navigate, error])
+
   const columns = [
     { field: "id", headerName: "Order ID", minWidth: 300, flex: 1 },
-
     {
       field: "status",
       headerName: "Status",
       minWidth: 150,
       flex: 0.5,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
-          ? "greenColor"
-          : "redColor";
+        const status = params.row.status;
+        return status === "Delivered" ? "greenColor" : "redColor";
       },
     },
     {
@@ -40,7 +47,6 @@ const MyOrders = () => {
       minWidth: 150,
       flex: 0.3,
     },
-
     {
       field: "amount",
       headerName: "Amount",
@@ -48,7 +54,6 @@ const MyOrders = () => {
       minWidth: 270,
       flex: 0.5,
     },
-
     {
       field: "actions",
       flex: 0.3,
@@ -57,34 +62,27 @@ const MyOrders = () => {
       type: "number",
       sortable: false,
       renderCell: (params) => {
+        const orderId = params.id;
         return (
-          <Link to={`/order/${params.getValue(params.id, "id")}`}>
+          <Link to={`/order/${orderId}`}>
             <LaunchIcon />
           </Link>
         );
       },
     },
   ];
-  const rows = [];
 
-  orders &&
-    orders.forEach((item, index) => {
-      rows.push({
-        itemsQty: item.orderItems.length,
-        id: item._id,
-        status: item.orderStatus,
-        amount: item.totalPrice,
-      });
-    });
+  const rows = orders?.map((item) => ({
+    itemsQty: item.orderItems?.length || 0,
+    id: item._id,
+    status: item.orderStatus,
+    amount: item.totalPrice,
+  })) || [];
 
   useEffect(() => {
-    if (error) {
-      alert.error(error);
-      dispatch(clearErrors());
-    }
-
-    dispatch(myOrders());
-  }, [dispatch, alert, error]);
+    if (token)
+      dispatch(myOrders());
+  }, [dispatch, myOrders]);
 
   return (
     <Fragment>
@@ -102,8 +100,6 @@ const MyOrders = () => {
             className="myOrdersTable"
             autoHeight
           />
-
-          <Typography id="myOrdersHeading">{user.name}'s Orders</Typography>
         </div>
       )}
     </Fragment>

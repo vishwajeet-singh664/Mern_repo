@@ -1,0 +1,113 @@
+/* orderDetails.css */
+
+.dashboard1 {
+  padding: 20px;
+}
+
+.dashboardContainer1 {
+  display: flex;
+  justify-content: space-around;
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.pageTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.orderSummary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.orderSummaryBox {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.summaryLabel {
+  font-weight: bold;
+}
+
+.summaryValue {
+  margin-top: 5px;
+}
+
+.statusLabel {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.greenColor {
+  background-color: #4caf50;
+}
+
+.redColor {
+  background-color: #f44336;
+}
+
+.orderItems {
+  margin-top: 20px;
+}
+
+.orderItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-direction: column;
+}
+
+.itemImage {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.itemImage img {
+  width: 20vmax;
+  height: 200px;
+  object-fit: cover;
+}
+
+.itemDetails {
+  flex: 1;
+}
+
+.itemName {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.itemPrice {
+  color: #888;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 768px) {
+  .dashboardContainer {
+    flex-direction: column;
+  }
+
+  .itemImage {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
