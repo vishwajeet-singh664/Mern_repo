@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import Header from "./components/layout/Header/Header.jsx";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -73,4 +74,31 @@ function App() {
   );
 }
 
+=======
+import './App.css';
+import Metadata from './component/layout/Metadata';
+import Home from './component/Home/Home';
+
+import {Routes,Route} from 'react-router-dom'
+import ProductDetails from './component/Product/ProductDetails';
+import Products from './component/Product/Products';
+import NewProduct from './component/admin/NewProduct';
+// import { Dashboard } from '@material-ui/icons';
+function App() {
+  return  (
+     <>
+
+   <Routes>
+      <Route path='/' element={ <Home/>}/>
+     
+  <Route path='/products/:keyword' element={<Products/>}/>
+  <Route path='product/:id' element={<ProductDetails/>}/>
+  <Route path='/products' element={<Products/>}/>
+  <Route path='/newproduct' element={<NewProduct/>}/>
+   </Routes>
+
+    </>
+  );
+}
+>>>>>>> origin/prsanjeet
 export default App;
